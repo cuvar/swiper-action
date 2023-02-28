@@ -1,2 +1,2 @@
 # swiper-action
-simple component for "swipe-to-action"
+simple component for swipe-to-action
