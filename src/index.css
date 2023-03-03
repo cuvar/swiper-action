@@ -1,3 +1,58 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.debug {
+  background-color: pink;
+}
+
+.debug2 {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.z-0 {
+  z-index: 0;
+}
+
+.z-1 {
+  z-index: 1;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.actions,
+.actions > * {
+  height: 100%;
+}
+
+.item,
+.item > * {
+  height: 100%;
+}
