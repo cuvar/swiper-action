@@ -26,7 +26,7 @@ export default function SwiperAction(props: SwiperActionProps) {
     // console.log("mouse up");
   }
 
-  function handleMouseMove(ev: React.MouseEvent<Element, MouseEvent>) {
+  function handleMouseMove(ev: React.MouseEvent<HTMLElement, MouseEvent>) {
     if (!swiperRef.current) return;
 
     if (swiping) {
@@ -36,22 +36,21 @@ export default function SwiperAction(props: SwiperActionProps) {
       const limit = -200;
       // console.log(props.actions.props.children.length);
       if (delta > 0) {
-        reset(swiperRef.current as Element);
+        reset(swiperRef.current as HTMLElement);
         return;
       }
 
       if (delta < 0 && delta > limit) {
-        moveX(swiperRef.current as Element, delta);
+        moveX(swiperRef.current as HTMLElement, delta);
       }
     }
   }
 
-  function moveX(target: Element, x: number) {
-    // @ts-ignore
+  function moveX(target: HTMLElement, x: number) {
     target.style.translate = `${x}px 0px`;
   }
 
-  function reset(target: Element) {
+  function reset(target: HTMLElement) {
     moveX(target, 0);
   }
 
