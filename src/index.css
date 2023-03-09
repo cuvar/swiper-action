@@ -2,7 +2,7 @@
   background-color: pink;
 }
 
-.debug2 {
+.red {
   background-color: red;
 }
 
@@ -10,33 +10,27 @@
   background-color: green;
 }
 
+.custom-pos {
+  width: 300px;
+  height: 100px;
+}
+
 .flex-row {
   display: flex;
   flex-direction: row;
 }
 
-.z-0 {
-  z-index: 0;
-}
-
-.z-1 {
-  z-index: 1;
-}
-
-.absolute {
-  position: absolute;
-}
-
-.relative {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 300px;
-  height: 100px;
+.flex-col {
+  display: flex;
+  flex-direction: column;
 }
 
 .w-full {
   width: 100%;
+}
+
+.h-full {
+  height: 100%;
 }
 
 .right-0 {
@@ -47,12 +41,26 @@
   left: 0;
 }
 
-.actions,
-.actions > * {
-  height: 100%;
+.overflow-hidden {
+  overflow: hidden;
 }
 
-.item,
-.item > * {
-  height: 100%;
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.display-contents {
+  display: contents;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.bg-black {
+  background-color: black;
 }
