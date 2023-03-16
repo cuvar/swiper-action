@@ -13,6 +13,7 @@ export default function SwiperAction(props: SwiperActionProps) {
     : [];
 
   const BUTTON_WIDTH = actionChildren.length < 4 ? 100 : 50;
+  const LIMIT = -actionChildren.length * BUTTON_WIDTH;
 
   const [swiping, setSwiping] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -26,32 +27,36 @@ export default function SwiperAction(props: SwiperActionProps) {
   }
 
   function handleMouseUp(ev: React.MouseEvent<Element, MouseEvent>) {
+    if (0.5 * LIMIT >= deltaX) {
+      enlarge(LIMIT);
+    } else {
+      enlarge(0);
+    }
+
     setSwiping(false);
   }
 
   function handleMouseMove(ev: React.MouseEvent<HTMLElement, MouseEvent>) {
-    const limit = -actionChildren.length * BUTTON_WIDTH;
     if (swiping) {
       const delta = ev.clientX - startX;
-      setDeltaX(delta);
 
       if (delta > 0) {
         reset();
         return;
       }
 
-      console.log(delta, limit, delta > limit);
+      console.log(delta, LIMIT, delta > LIMIT);
 
-      if (delta < 0 && delta > limit) {
-        enlarge(Math.abs(delta));
+      if (delta < 0 && delta > LIMIT) {
+        enlarge(delta);
       }
     }
   }
 
   function enlarge(x: number) {
-    if (x < 0) return;
+    setDeltaX(x);
     if (!actionRef.current) return;
-    (actionRef.current as HTMLElement).style.width = `${x}px`;
+    (actionRef.current as HTMLElement).style.width = `${Math.abs(x)}px`;
   }
 
   function reset() {
