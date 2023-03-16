@@ -7,66 +7,63 @@ import type { SwiperActionProps, ActionProps } from "./types";
 
 export { Action };
 
+const BUTTON_WIDTH = 100;
+const BUTTON_AMOUNT = 2;
+
 export default function SwiperAction(props: SwiperActionProps) {
   const [swiping, setSwiping] = useState(false);
-  const [deltaX, setDeltaX] = useState(0);
   const [startX, setStartX] = useState(0);
   const swiperRef = useRef(null);
+  const actionRef = useRef(null);
 
   function handleMouseDown(ev: React.MouseEvent<Element, MouseEvent>) {
     setSwiping(true);
-    setDeltaX(0);
     setStartX(ev.clientX);
-    // console.log(ev.clientX);
-    // console.log("mouse down");
   }
 
   function handleMouseUp(ev: React.MouseEvent<Element, MouseEvent>) {
     setSwiping(false);
-    // console.log("mouse up");
   }
 
   function handleMouseMove(ev: React.MouseEvent<HTMLElement, MouseEvent>) {
-    if (!swiperRef.current) return;
-
     if (swiping) {
       const delta = ev.clientX - startX;
-      setDeltaX(delta);
-      console.log(delta);
-      const limit = -200;
-      // console.log(props.actions.props.children.length);
+      const limit = -BUTTON_AMOUNT * BUTTON_WIDTH; // -200
       if (delta > 0) {
-        reset(swiperRef.current as HTMLElement);
+        reset();
         return;
       }
+      // console.log(delta, limit, delta > limit);
 
       if (delta < 0 && delta > limit) {
-        moveX(swiperRef.current as HTMLElement, delta);
+        enlarge(Math.abs(delta));
       }
     }
   }
 
-  function moveX(target: HTMLElement, x: number) {
-    target.style.translate = `${x}px 0px`;
+  function enlarge(x: number) {
+    if (x < 0) return;
+    if (!actionRef.current) return;
+    (actionRef.current as HTMLElement).style.width = `${x}px`;
   }
 
-  function reset(target: HTMLElement) {
-    moveX(target, 0);
+  function reset() {
+    enlarge(0);
   }
 
   return (
-    <div className="custom-pos w-full h-full red overflow-hidden">
-      <div className="w-full h-full flex-row items-center">
-        <div
-          className="w-full h-full flex-row items-center bg-black"
-          onMouseDown={(e) => handleMouseDown(e)}
-          onMouseUp={(e) => handleMouseUp(e)}
-          onMouseMove={(e) => handleMouseMove(e)}
-          ref={swiperRef}
-        >
-          {props.children}
-        </div>
-        <div className="flex-row h-full items-center">{props.actions}</div>
+    <div className="w-full h-full flex-row items-center red overflow-hidden">
+      <div
+        className="w-full h-full flex-row items-center"
+        onMouseDown={(e) => handleMouseDown(e)}
+        onMouseUp={(e) => handleMouseUp(e)}
+        onMouseMove={(e) => handleMouseMove(e)}
+        ref={swiperRef}
+      >
+        {props.children}
+      </div>
+      <div className="h-full flex-row items-center w-0" ref={actionRef}>
+        {props.actions}
       </div>
     </div>
   );

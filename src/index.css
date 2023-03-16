@@ -64,3 +64,31 @@
 .bg-black {
   background-color: black;
 }
+
+.w-1\/2 {
+  width: 50%;
+}
+
+.w-0 {
+  width: 0;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.h-custom {
+  height: 100px;
+}
+
+.actions {
+  right: 0px;
+}
+
+.item {
+  left: 0;
+}
