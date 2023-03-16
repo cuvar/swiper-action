@@ -3,22 +3,22 @@
 import React, { useState, useRef } from "react";
 import "./index.css";
 import Action from "./Action";
-import type { SwiperActionProps, ActionProps } from "./types";
+import type { SwiperActionProps } from "./types";
 
 export { Action };
 
 export default function SwiperAction(props: SwiperActionProps) {
-  const BUTTON_WIDTH = 100;
+  const actionChildren = Array.isArray(props.actions.props.children)
+    ? props.actions.props.children
+    : [];
+
+  const BUTTON_WIDTH = actionChildren.length < 4 ? 100 : 50;
 
   const [swiping, setSwiping] = useState(false);
   const [startX, setStartX] = useState(0);
   const [deltaX, setDeltaX] = useState(0);
   const swiperRef = useRef(null);
   const actionRef = useRef(null);
-
-  const actionChildren = Array.isArray(props.actions.props.children)
-    ? props.actions.props.children
-    : [];
 
   function handleMouseDown(ev: React.MouseEvent<Element, MouseEvent>) {
     setSwiping(true);
