@@ -89,6 +89,12 @@
   right: 0px;
 }
 
+.action {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .item {
   left: 0;
 }
