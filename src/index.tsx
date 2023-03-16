@@ -7,14 +7,18 @@ import type { SwiperActionProps, ActionProps } from "./types";
 
 export { Action };
 
-const BUTTON_WIDTH = 100;
-const BUTTON_AMOUNT = 2;
-
 export default function SwiperAction(props: SwiperActionProps) {
+  const BUTTON_WIDTH = 100;
+
   const [swiping, setSwiping] = useState(false);
   const [startX, setStartX] = useState(0);
+  const [deltaX, setDeltaX] = useState(0);
   const swiperRef = useRef(null);
   const actionRef = useRef(null);
+
+  const actionChildren = Array.isArray(props.actions.props.children)
+    ? props.actions.props.children
+    : [];
 
   function handleMouseDown(ev: React.MouseEvent<Element, MouseEvent>) {
     setSwiping(true);
@@ -26,14 +30,17 @@ export default function SwiperAction(props: SwiperActionProps) {
   }
 
   function handleMouseMove(ev: React.MouseEvent<HTMLElement, MouseEvent>) {
+    const limit = -actionChildren.length * BUTTON_WIDTH;
     if (swiping) {
       const delta = ev.clientX - startX;
-      const limit = -BUTTON_AMOUNT * BUTTON_WIDTH; // -200
+      setDeltaX(delta);
+
       if (delta > 0) {
         reset();
         return;
       }
-      // console.log(delta, limit, delta > limit);
+
+      console.log(delta, limit, delta > limit);
 
       if (delta < 0 && delta > limit) {
         enlarge(Math.abs(delta));
