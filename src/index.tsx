@@ -7,7 +7,7 @@ import type { SwiperActionProps } from "./types";
 
 export { Action };
 
-export default function SwiperAction(props: SwiperActionProps) {
+export function SwiperAction(props: SwiperActionProps) {
   const actionChildren = Array.isArray(props.actions.props.children)
     ? props.actions.props.children
     : [];
@@ -66,9 +66,9 @@ export default function SwiperAction(props: SwiperActionProps) {
   }
 
   return (
-    <div className="w-full h-full flex-row items-center red overflow-hidden">
+    <div className="w-full h-max flex-row items-center red overflow-hidden">
       <div
-        className="w-full h-full flex-row items-center"
+        className="w-full h-full flex-row items-center justify-center"
         onMouseDown={(e) => handleMouseDown(e)}
         onMouseUp={(e) => handleMouseUp(e)}
         onMouseMove={(e) => handleMouseMove(e)}

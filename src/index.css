@@ -33,6 +33,14 @@
   height: 100%;
 }
 
+.h-min {
+  height: min-content;
+}
+
+.h-max {
+  height: max-content;
+}
+
 .right-0 {
   right: 0;
 }
@@ -53,7 +61,7 @@
   justify-content: center;
 }
 
-.display-contents {
+.contents {
   display: contents;
 }
 
