@@ -49,6 +49,8 @@ export default function SwiperAction(props: SwiperActionProps) {
 
       if (delta < 0 && delta > LIMIT) {
         enlarge(delta);
+      } else if (delta < LIMIT) {
+        setSwiping(false);
       }
     }
   }
