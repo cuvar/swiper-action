@@ -75,7 +75,7 @@ export function SwiperAction(props: SwiperActionProps) {
 
     elem.style.transition = `width 0s`;
     elem.style.width = `0`;
-    elem.style.transition = ``;
+    // elem.style.transition = ``;
   }
 
   function isMouseEvent(ev: InteractionEvent): ev is React.MouseEvent {
