@@ -6,6 +6,9 @@ import Action from "./Action";
 import type { SwiperActionProps } from "./types";
 
 export { Action };
+type MoveEvent =
+  | React.MouseEvent<Element, MouseEvent>
+  | React.TouchEvent<Element>;
 
 export function SwiperAction(props: SwiperActionProps) {
   const actionChildren = Array.isArray(props.actions.props.children)
@@ -16,17 +19,22 @@ export function SwiperAction(props: SwiperActionProps) {
   const LIMIT = -actionChildren.length * BUTTON_WIDTH;
 
   const [swiping, setSwiping] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
   const [startX, setStartX] = useState(0);
   const [deltaX, setDeltaX] = useState(0);
   const swiperRef = useRef(null);
   const actionRef = useRef(null);
 
-  function handleMouseDown(ev: React.MouseEvent<Element, MouseEvent>) {
+  function handleDown(ev: MoveEvent) {
     setSwiping(true);
-    setStartX(ev.clientX);
+    if (isMouseEvent(ev)) {
+      setStartX(ev.clientX);
+    } else {
+      setStartX(ev.targetTouches[0].clientX);
+    }
   }
 
-  function handleMouseUp(ev: React.MouseEvent<Element, MouseEvent>) {
+  function handleUp(ev: MoveEvent) {
     if (0.5 * LIMIT >= deltaX) {
       enlarge(LIMIT);
     } else {
@@ -36,22 +44,27 @@ export function SwiperAction(props: SwiperActionProps) {
     setSwiping(false);
   }
 
-  function handleMouseMove(ev: React.MouseEvent<HTMLElement, MouseEvent>) {
-    if (swiping) {
-      const delta = ev.clientX - startX;
+  function handleMove(ev: MoveEvent) {
+    if (!swiping) return;
+    if (isResetting) return;
 
-      if (delta > 0) {
-        reset();
-        return;
-      }
+    const clientX = isMouseEvent(ev) ? ev.clientX : ev.targetTouches[0].clientX;
+    const delta = clientX - startX;
 
-      console.log(delta, LIMIT, delta > LIMIT);
+    if (delta > 0) {
+      setIsResetting(true);
+      setSwiping(false);
+      reset();
+      setIsResetting(false);
+      return;
+    }
 
-      if (delta < 0 && delta > LIMIT) {
-        enlarge(delta);
-      } else if (delta < LIMIT) {
-        setSwiping(false);
-      }
+    console.log(delta, LIMIT, delta > LIMIT);
+
+    if (delta < 0 && delta > LIMIT) {
+      enlarge(delta);
+    } else if (delta < LIMIT) {
+      setSwiping(false);
     }
   }
 
@@ -62,16 +75,30 @@ export function SwiperAction(props: SwiperActionProps) {
   }
 
   function reset() {
-    enlarge(0);
+    setDeltaX(0);
+
+    if (!actionRef.current) return;
+    const elem = actionRef.current as HTMLElement;
+
+    elem.style.transition = `width 0s`;
+    elem.style.width = `0`;
+    elem.style.transition = ``;
+  }
+
+  function isMouseEvent(ev: MoveEvent): ev is React.MouseEvent {
+    return ev.type.includes("mouse");
   }
 
   return (
     <div className="w-full h-max flex-row items-center red overflow-hidden">
       <div
         className="w-full h-full flex-row items-center justify-center"
-        onMouseDown={(e) => handleMouseDown(e)}
-        onMouseUp={(e) => handleMouseUp(e)}
-        onMouseMove={(e) => handleMouseMove(e)}
+        onMouseDown={(e) => handleDown(e)}
+        onMouseUp={(e) => handleUp(e)}
+        onMouseMove={(e) => handleMove(e)}
+        onTouchStart={(e) => handleDown(e)}
+        onTouchEnd={(e) => handleUp(e)}
+        onTouchMove={(e) => handleMove(e)}
         ref={swiperRef}
       >
         {props.children}
