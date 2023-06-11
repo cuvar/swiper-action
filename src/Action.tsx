@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { ActionProps, InteractionEvent } from "./types";
 
 export default function Action(props: ActionProps) {
@@ -11,7 +11,6 @@ export default function Action(props: ActionProps) {
       const parent = buttonRef.current.parentElement;
       parent.style.transition = `width 0.2s`;
       parent.style.width = `0`;
-      // parent.style.transition = ``;
     }
     props.action(e);
   }
@@ -22,13 +21,13 @@ export default function Action(props: ActionProps) {
       ref={buttonRef}
       style={{
         width: "100%",
-        height: "100%",
+        height: "inherit",
         overflow: "hidden",
         textOverflow: "ellipsis",
         whiteSpace: "nowrap",
       }}
     >
-      <div>{props.children}</div>
+      {props.children}
     </button>
   );
 }

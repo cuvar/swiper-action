@@ -3,10 +3,12 @@ import { SwiperAction, Action } from "swiper-action";
 function App() {
   const actions = [
     <Action key={1} action={() => console.log("action 1")}>
-      <div className="bg-red-500">Action 1</div>
+      <div className="bg-red-500 h-full flex justify-center items-center">
+        Action 1
+      </div>
     </Action>,
     <Action key={2} action={() => console.log("action 2")}>
-      <div className="bg-yellow-500">Action 2</div>
+      <div className="bg-yellow-500 h-full">Action 2</div>
     </Action>,
   ];
 
