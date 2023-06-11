@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && parcel build",
+    "build": "npm run clean && parcel build src/index.tsx",
     "dev": "parcel watch src/index.tsx",
     "prepack": "npm run build",
     "semantic-release": "semantic-release",
