@@ -3,12 +3,9 @@
 import React, { useState, useRef } from "react";
 import "./index.css";
 import Action from "./Action";
-import type { SwiperActionProps } from "./types";
+import type { InteractionEvent, SwiperActionProps } from "./types";
 
 export { Action };
-type MoveEvent =
-  | React.MouseEvent<Element, MouseEvent>
-  | React.TouchEvent<Element>;
 
 export function SwiperAction(props: SwiperActionProps) {
   const actionChildren = Array.isArray(props.actions.props.children)
@@ -17,6 +14,7 @@ export function SwiperAction(props: SwiperActionProps) {
 
   const BUTTON_WIDTH = actionChildren.length < 4 ? 100 : 50;
   const LIMIT = -actionChildren.length * BUTTON_WIDTH;
+  const MINIMUM_SWIPE = 0.2 * LIMIT;
 
   const [swiping, setSwiping] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
@@ -25,7 +23,7 @@ export function SwiperAction(props: SwiperActionProps) {
   const swiperRef = useRef(null);
   const actionRef = useRef(null);
 
-  function handleDown(ev: MoveEvent) {
+  function handleDown(ev: InteractionEvent) {
     setSwiping(true);
     if (isMouseEvent(ev)) {
       setStartX(ev.clientX);
@@ -34,8 +32,8 @@ export function SwiperAction(props: SwiperActionProps) {
     }
   }
 
-  function handleUp(ev: MoveEvent) {
-    if (0.5 * LIMIT >= deltaX) {
+  function handleUp(ev: InteractionEvent) {
+    if (MINIMUM_SWIPE >= deltaX) {
       enlarge(LIMIT);
     } else {
       enlarge(0);
@@ -44,7 +42,7 @@ export function SwiperAction(props: SwiperActionProps) {
     setSwiping(false);
   }
 
-  function handleMove(ev: MoveEvent) {
+  function handleMove(ev: InteractionEvent) {
     if (!swiping) return;
     if (isResetting) return;
 
@@ -85,7 +83,7 @@ export function SwiperAction(props: SwiperActionProps) {
     elem.style.transition = ``;
   }
 
-  function isMouseEvent(ev: MoveEvent): ev is React.MouseEvent {
+  function isMouseEvent(ev: InteractionEvent): ev is React.MouseEvent {
     return ev.type.includes("mouse");
   }
 

@@ -5,5 +5,9 @@ export interface SwiperActionProps {
 
 export interface ActionProps {
   children: React.ReactNode;
-  action: (ev: React.MouseEvent<Element, MouseEvent>) => any;
+  action: (ev: InteractionEvent) => any;
 }
+
+export type InteractionEvent =
+  | React.MouseEvent<Element, MouseEvent>
+  | React.TouchEvent<Element>;
