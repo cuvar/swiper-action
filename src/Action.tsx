@@ -18,9 +18,15 @@ export default function Action(props: ActionProps) {
 
   return (
     <button
-      className="action debug w-full h-full"
       onClick={(e) => handleClick(e)}
       ref={buttonRef}
+      style={{
+        width: "100%",
+        height: "100%",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+      }}
     >
       <div>{props.children}</div>
     </button>

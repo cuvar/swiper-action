@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import "./index.css";
 import Action from "./Action";
 import type { InteractionEvent, SwiperActionProps } from "./types";
 
@@ -88,9 +87,25 @@ export function SwiperAction(props: SwiperActionProps) {
   }
 
   return (
-    <div className="w-full h-max flex-row items-center red overflow-hidden">
+    <div
+      style={{
+        width: "100%",
+        height: "max-content",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        overflow: "hidden",
+      }}
+    >
       <div
-        className="w-full h-full flex-row items-center justify-center"
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
         onMouseDown={(e) => handleDown(e)}
         onMouseUp={(e) => handleUp(e)}
         onMouseMove={(e) => handleMove(e)}
@@ -101,7 +116,16 @@ export function SwiperAction(props: SwiperActionProps) {
       >
         {props.children}
       </div>
-      <div className="h-full flex-row items-center w-0" ref={actionRef}>
+      <div
+        ref={actionRef}
+        style={{
+          width: "0",
+          height: "100%",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
         {props.actions}
       </div>
     </div>
