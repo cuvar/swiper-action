@@ -7,12 +7,8 @@ import type { InteractionEvent, SwiperActionProps } from "./types";
 export { Action };
 
 export function SwiperAction(props: SwiperActionProps) {
-  const actionChildren = Array.isArray(props.actions.props.children)
-    ? props.actions.props.children
-    : [];
-
-  const BUTTON_WIDTH = actionChildren.length < 4 ? 100 : 50;
-  const LIMIT = -actionChildren.length * BUTTON_WIDTH;
+  const BUTTON_WIDTH = props.actions.length < 4 ? 100 : 50;
+  const LIMIT = -props.actions.length * BUTTON_WIDTH;
   const MINIMUM_SWIPE = 0.2 * LIMIT;
 
   const [swiping, setSwiping] = useState(false);

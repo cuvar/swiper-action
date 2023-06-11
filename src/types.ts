@@ -1,6 +1,6 @@
 export interface SwiperActionProps {
   children: React.ReactNode;
-  actions: React.ReactElement<ActionProps>;
+  actions: React.ReactElement<ActionProps>[];
 }
 
 export interface ActionProps {
