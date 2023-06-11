@@ -52,7 +52,7 @@ export function SwiperAction(props: SwiperActionProps) {
       return;
     }
 
-    console.log(delta, LIMIT, delta > LIMIT);
+    // console.log(delta, LIMIT, delta > LIMIT);
 
     if (delta < 0 && delta > LIMIT) {
       enlarge(delta);
@@ -64,7 +64,14 @@ export function SwiperAction(props: SwiperActionProps) {
   function enlarge(x: number) {
     setDeltaX(x);
     if (!actionRef.current) return;
-    (actionRef.current as HTMLElement).style.width = `${Math.abs(x)}px`;
+    const elem = actionRef.current as HTMLElement;
+    if (x === LIMIT) {
+      elem.style.transition = `width 0.2s`;
+    }
+    elem.style.width = `${Math.abs(x)}px`;
+    setTimeout(() => {
+      elem.style.transition = ``;
+    }, 200);
   }
 
   function reset() {
@@ -73,9 +80,11 @@ export function SwiperAction(props: SwiperActionProps) {
     if (!actionRef.current) return;
     const elem = actionRef.current as HTMLElement;
 
-    elem.style.transition = `width 0s`;
+    elem.style.transition = `width 0.2s`;
     elem.style.width = `0`;
-    // elem.style.transition = ``;
+    setTimeout(() => {
+      elem.style.transition = ``;
+    }, 200);
   }
 
   function isMouseEvent(ev: InteractionEvent): ev is React.MouseEvent {
