@@ -1,15 +1,25 @@
-import { SwiperAction, Action, ActionProps } from "swiper-action";
+import {
+  SwiperAction,
+  Action,
+  ActionProps,
+  InteractionEvent,
+} from "swiper-action";
 
 function App() {
+  function handleAction(ev: InteractionEvent, args: any) {
+    console.log("action 1");
+    console.log(args);
+  }
+
   const actions: React.ReactElement<ActionProps>[] = [
-    // <Action key={1} action={() => console.log("action 1")}>
-    //   <div className="bg-red-500 h-full flex justify-center items-center">
-    //     Action 1
-    //   </div>
-    // </Action>,
-    // <Action key={2} action={() => console.log("action 2")}>
-    //   <div className="bg-yellow-500 h-full">Action 2</div>
-    // </Action>,
+    <Action key={1} action={handleAction} args={"hello world"}>
+      <div className="bg-red-500 h-full flex justify-center items-center">
+        Action 1
+      </div>
+    </Action>,
+    <Action key={2} action={() => console.log("action 2")}>
+      <div className="bg-yellow-500 h-full">Action 2</div>
+    </Action>,
   ];
 
   return (

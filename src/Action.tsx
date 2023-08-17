@@ -12,7 +12,7 @@ export default function Action(props: ActionProps) {
       parent.style.transition = `width 0.2s`;
       parent.style.width = `0`;
     }
-    props.action(e);
+    props.action(e, props.args ?? null);
   }
 
   return (

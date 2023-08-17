@@ -5,7 +5,8 @@ export interface SwiperActionProps {
 
 export interface ActionProps {
   children: React.ReactNode;
-  action: (ev: InteractionEvent) => any;
+  action: (ev: InteractionEvent, args: any | null) => any;
+  args?: any;
 }
 
 export type InteractionEvent =
