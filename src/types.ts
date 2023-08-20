@@ -1,13 +1,12 @@
 export interface SwiperActionProps {
   children: React.ReactNode;
-  // actions: React.ReactElement<ActionProps>[];
-  actionsData: ActionData[];
+  actions: ActionData[];
 }
 
 export interface ActionProps {
   children: React.ReactNode;
   action: (ev: InteractionEvent, args: any | null) => any;
-  args: any;
+  args: any | null;
 }
 
 export type InteractionEvent =
@@ -17,5 +16,5 @@ export type InteractionEvent =
 export interface ActionData {
   children: React.ReactNode;
   action: (ev: InteractionEvent, args: any | null) => any;
-  args: any;
+  args?: any;
 }

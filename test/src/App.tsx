@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="w-screen h-screen bg-sky-700 flex justify-center items-center">
       <div className="w-1/2 flex flex-col space-y-2">
-        <SwiperAction actionsData={actionData}>
+        <SwiperAction actions={actionData}>
           <div className="w-full h-10 bg-white flex">First Item</div>
         </SwiperAction>
       </div>

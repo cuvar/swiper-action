@@ -8,8 +8,8 @@ import type { InteractionEvent, SwiperActionProps, ActionData } from "./types";
 export type { ActionData };
 
 export function SwiperAction(props: SwiperActionProps) {
-  const BUTTON_WIDTH = props.actionsData.length < 4 ? 100 : 50;
-  const LIMIT = -props.actionsData.length * BUTTON_WIDTH;
+  const BUTTON_WIDTH = props.actions.length < 4 ? 100 : 50;
+  const LIMIT = -props.actions.length * BUTTON_WIDTH;
   const MINIMUM_SWIPE = 0.2 * LIMIT;
 
   const [swiping, setSwiping] = useState(false);
@@ -20,7 +20,7 @@ export function SwiperAction(props: SwiperActionProps) {
   const actionRef = useRef(null);
 
   function handleDown(ev: InteractionEvent) {
-    if (props.actionsData.length === 0) return;
+    if (props.actions.length === 0) return;
     setSwiping(true);
     if (isMouseEvent(ev)) {
       setStartX(ev.clientX);
@@ -30,7 +30,7 @@ export function SwiperAction(props: SwiperActionProps) {
   }
 
   function handleUp(ev: InteractionEvent) {
-    if (props.actionsData.length === 0) return;
+    if (props.actions.length === 0) return;
     if (MINIMUM_SWIPE >= deltaX) {
       enlarge(LIMIT);
     } else {
@@ -41,7 +41,7 @@ export function SwiperAction(props: SwiperActionProps) {
   }
 
   function handleMove(ev: InteractionEvent) {
-    if (props.actionsData.length === 0) return;
+    if (props.actions.length === 0) return;
     if (!swiping) return;
     if (isResetting) return;
 
@@ -96,13 +96,13 @@ export function SwiperAction(props: SwiperActionProps) {
   }
 
   const newActions = [];
-  for (let i = 0; i < props.actionsData.length; i++) {
-    const d = props.actionsData[i];
+  for (let i = 0; i < props.actions.length; i++) {
+    const d = props.actions[i];
     const action = (
       <Action
         children={d.children}
         action={d.action}
-        args={d.args}
+        args={d.args ?? null}
         key={"sa-" + i}
       ></Action>
     );
