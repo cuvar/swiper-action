@@ -1,8 +1,9 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+
+import React, { useRef } from "react";
 import { ActionProps, InteractionEvent } from "./types";
 
-export default function Action(props: ActionProps) {
+export function Action(props: ActionProps) {
   const buttonRef = useRef(null);
 
   function handleClick(e: InteractionEvent) {
@@ -12,7 +13,7 @@ export default function Action(props: ActionProps) {
       parent.style.transition = `width 0.2s`;
       parent.style.width = `0`;
     }
-    props.action(e, props.args ?? null);
+    props.action(e, props.args);
   }
 
   return (
