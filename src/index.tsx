@@ -22,6 +22,11 @@ export function SwiperAction(props: SwiperActionProps) {
   function handleDown(ev: InteractionEvent) {
     if (props.actions.length === 0) return;
     setSwiping(true);
+
+    if (props.onSwipeStart) {
+      props.onSwipeStart(ev);
+    }
+
     if (isMouseEvent(ev)) {
       setStartX(ev.clientX);
     } else {
@@ -31,6 +36,10 @@ export function SwiperAction(props: SwiperActionProps) {
 
   function handleUp(ev: InteractionEvent) {
     if (props.actions.length === 0) return;
+    if (props.onSwipeEnd) {
+      props.onSwipeEnd(ev);
+    }
+
     if (MINIMUM_SWIPE >= deltaX) {
       enlarge(LIMIT);
     } else {
@@ -44,6 +53,10 @@ export function SwiperAction(props: SwiperActionProps) {
     if (props.actions.length === 0) return;
     if (!swiping) return;
     if (isResetting) return;
+
+    if (props.onSwipe) {
+      props.onSwipe(ev);
+    }
 
     const clientX = isMouseEvent(ev) ? ev.clientX : ev.targetTouches[0].clientX;
     const delta = clientX - startX;

@@ -6,6 +6,21 @@ function App() {
     console.log(args);
   }
 
+  function handleSwipe(ev: InteractionEvent) {
+    console.log("swiping");
+    console.log(ev);
+  }
+
+  function handleSwipeEnd(ev: InteractionEvent) {
+    console.log("end swiping");
+    console.log(ev);
+  }
+
+  function handleSwipeStart(ev: InteractionEvent) {
+    console.log("start swiping");
+    console.log(ev);
+  }
+
   const actionData: ActionData[] = [
     {
       children: (
@@ -26,7 +41,12 @@ function App() {
   return (
     <div className="w-screen h-screen bg-sky-700 flex justify-center items-center">
       <div className="w-1/2 flex flex-col space-y-2">
-        <SwiperAction actions={actionData}>
+        <SwiperAction
+          actions={actionData}
+          onSwipe={handleSwipe}
+          onSwipeEnd={handleSwipeEnd}
+          onSwipeStart={handleSwipeStart}
+        >
           <div className="w-full h-10 bg-white flex">First Item</div>
         </SwiperAction>
       </div>

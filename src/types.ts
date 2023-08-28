@@ -1,6 +1,9 @@
 export interface SwiperActionProps {
   children: React.ReactNode;
   actions: ActionData[];
+  onSwipeStart?: (ev: InteractionEvent) => any;
+  onSwipeEnd?: (ev: InteractionEvent) => any;
+  onSwipe?: (ev: InteractionEvent) => any;
 }
 
 export interface ActionProps {
