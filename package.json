@@ -1,6 +1,6 @@
 {
   "name": "swiper-action",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "simple component for swipe-to-action",
   "main": "dist/index.js",
   "exports": {

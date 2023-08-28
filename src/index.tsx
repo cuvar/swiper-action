@@ -94,6 +94,11 @@ export function SwiperAction(props: SwiperActionProps) {
   function reset() {
     setDeltaX(0);
 
+    if (props.onResetStart) {
+      const resetEvent = new Event("resetstart");
+      props.onResetStart(resetEvent);
+    }
+
     if (!actionRef.current) return;
     const elem = actionRef.current as HTMLElement;
 
@@ -102,6 +107,11 @@ export function SwiperAction(props: SwiperActionProps) {
     setTimeout(() => {
       elem.style.transition = ``;
     }, 200);
+
+    if (props.onResetEnd) {
+      const resetEvent = new Event("resetend");
+      props.onResetEnd(resetEvent);
+    }
   }
 
   function isMouseEvent(ev: InteractionEvent): ev is React.MouseEvent {

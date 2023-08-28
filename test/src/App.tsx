@@ -1,4 +1,9 @@
-import { SwiperAction, ActionData, InteractionEvent } from "swiper-action";
+import {
+  SwiperAction,
+  ActionData,
+  InteractionEvent,
+  ResetEvent,
+} from "swiper-action";
 
 function App() {
   function handleAction(ev: InteractionEvent, args: string) {
@@ -18,6 +23,16 @@ function App() {
 
   function handleSwipeStart(ev: InteractionEvent) {
     console.log("start swiping");
+    console.log(ev);
+  }
+
+  function handleResetStart(ev: ResetEvent) {
+    console.log("start reset");
+    console.log(ev);
+  }
+
+  function handleResetEnd(ev: ResetEvent) {
+    console.log("end reset");
     console.log(ev);
   }
 
@@ -46,6 +61,8 @@ function App() {
           onSwipe={handleSwipe}
           onSwipeEnd={handleSwipeEnd}
           onSwipeStart={handleSwipeStart}
+          onResetStart={handleResetStart}
+          onResetEnd={handleResetEnd}
         >
           <div className="w-full h-10 bg-white flex">First Item</div>
         </SwiperAction>

@@ -4,6 +4,8 @@ export interface SwiperActionProps {
   onSwipeStart?: (ev: InteractionEvent) => any;
   onSwipeEnd?: (ev: InteractionEvent) => any;
   onSwipe?: (ev: InteractionEvent) => any;
+  onResetStart?: (ev: ResetEvent) => any;
+  onResetEnd?: (ev: ResetEvent) => any;
 }
 
 export interface ActionProps {
@@ -15,6 +17,8 @@ export interface ActionProps {
 export type InteractionEvent =
   | React.MouseEvent<Element, MouseEvent>
   | React.TouchEvent<Element>;
+
+export type ResetEvent = Event;
 
 export interface ActionData {
   children: React.ReactNode;
