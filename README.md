@@ -4,6 +4,9 @@ Simple react component for swipe-to-action.
 ## ⚠️ Disclaimer
 This project is still in its early stages. If you have ideas for improvements, open an issue or a pull request!
 
+## Idea
+Using this library "swipe-to-action" can be implemented easily. The idea is to have a container that contains the content and the actions. The actions are hidden by default and are only shown when the user swipes the content to the left or right. The actions can then be clicked to perform an action.
+
 ## 🚀 Getting started
 You can install this package using your favorite package manager:
 
@@ -46,6 +49,11 @@ In the end, this should look something like this image:
 1. Currently, the `key` prop needs to be set manually for the `Action` component. This will likely be fixed in the future.
 2. The width and height of the outer container for the `SwiperAction` component need to be set explicitly.
 
-
 ## ⚙️ Contributing
-This project is just getting started. Hence, feel free to open issues and pull requests!
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+## License
+
+This project is licensed under the [MIT](./LICENSE) license.
